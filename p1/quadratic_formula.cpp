@@ -1,73 +1,76 @@
 #include <iostream>
-#include <vector> 
+#include <vector>
 #include <cmath>
+#include <cstdlib>
 
-std::vector<double> oneSolution (double a, double b, double c) {
-    std::vector<double> solutions (1);
+void oneSolution(double a, double b, double c)
+{
+    double x;
+    x = -b / (2 * a);
+    std::cout << "There is 1 solution." << std::endl;
+    std::cout << "The solution is: " << x << std::endl;
 
-    solutions.at(0) = -b / (2 * a);
-
-    return solutions;
+    return;
 }
 
-std::vector<double> twoSolutions (double a, double b, double c) {
-    std::vector<double> solutions (2);
+void twoSolutions(double a, double b, double c)
+{
+    double x1 = (-b + sqrt(b * b - (4 * a * c))) / (2 * a);
+    double x2 = (-b - sqrt(b * b - (4 * a * c))) / (2 * a);
+    std::cout << "There are 2 solutions." << std::endl;
+    std::cout << "The solutions are: " << x1 << " and " << x2 << std::endl;
 
-    solutions.at(0) = (-b + sqrt(b * b - (4 * a * c))) / (2 * a); 
-    solutions.at(1) = (-b - sqrt(b * b - (4 * a * c))) / (2 * a);
-
-    return solutions;
+    return;
 }
 
-std::vector<double> quadraticFormula (double a, double b, double c) {
-    
+void quadraticFormula(double a, double b, double c)
+{
+
     double discriminant = (b * b) - (4 * a * c);
-    std::vector<double> solutions;
-    if (discriminant < 0) {
-        return solutions;
+    if (discriminant < 0)
+    {
+        std::cout << "There is no solution." << std::endl;
+        return;
     }
-    else if (discriminant == 0) {
-        solutions = oneSolution(a, b, c);
+    else if (discriminant == 0)
+    {
+        oneSolution(a, b, c);
     }
-    else {
-        solutions = twoSolutions(a, b, c);
+    else
+    {
+        twoSolutions(a, b, c);
     }
-    return solutions;
 
+    return;
+}
+double readDouble () {
+    double x;
+    if (!(std::cin >> x)) {
+        throw std::runtime_error("Malformed user input");
+    }
+    return x;
 }
 
-int main(){
+int main()
+{
+    try {
 
-    double a;
-    double b;
-    double c;
-    std::vector<double> solutions;
-    int numSolutions; 
+        std::cout << "Please enter the values of a, b, and c: ";
+        double a = readDouble();
+        double b = readDouble();
+        double c = readDouble();
 
-    std::cout << "Please enter the values of a, b, and c: ";
-    std::cin >> a >> b >> c;
-    std::cout << std::endl;
+        if (a == 0)
+        {
+            throw std::runtime_error("a must not be zero");
+        }
 
-    solutions = quadraticFormula(a, b, c);
-    numSolutions = solutions.size();
-
-    switch (numSolutions) {
-        case 0:
-            std::cout << "There is no solution." << std::endl;
-            break;
-        case 1:
-            std::cout << "There is " << numSolutions << "solution." << std::endl;
-            std::cout << "The solution is: " << solutions.at(0) << std::endl;
-            break;
-        case 2:
-            std::cout << "There is " << numSolutions << " solutions." << std::endl;
-            std::cout << "The solutions are: " << solutions.at(0) << " and " << solutions.at(1) << std::endl;
-            break;
-        default:
-            std::cout << "-- ERROR --" << std::endl;
-            break;
+        quadraticFormula(a, b, c);
+    }
+    catch (std::runtime_error &err) {
+        std::cout << "An error occurred: " << err.what() << std::endl;
+        return 1;
     }
 
-    
     return 0;
 }
