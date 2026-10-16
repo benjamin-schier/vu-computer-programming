@@ -1,0 +1,7 @@
+apple 5
+pear 2
+
+apple 2
+banana x
+kiwi 3 extra
+orange -4

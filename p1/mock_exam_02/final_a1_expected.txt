@@ -1,0 +1,7 @@
+Error: invalid line "banana x"
+Error: invalid line "kiwi 3 extra"
+Error: invalid line "orange -4"
+Inventory:
+apple: 7
+pear: 2
+Errors: 3
